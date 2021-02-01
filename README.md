@@ -22,7 +22,10 @@ A few resources to get you started if this is your first Flutter project:
 <img src="screenshots/ss5.jpg" width = 300>  <img src="screenshots/ss6.jpg" width = 300>
 
 
-<img src="screenshots/ss7.jpg" width = 300>  <img src="screenshots/ss8.jpg" width = 300>
+# Resources
+
+
+[Coin Api](https://www.coinapi.io/)
 
 
 For help getting started with Flutter, view our
