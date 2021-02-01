@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-String selectedCurrency = 'USD';
+String selectedCurrency = 'AUD';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -13,22 +13,23 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String bitcoinValueInUSD = "";
-  @override
-  void initState() {
-    super.initState();
-    getCurrencyRate();
-  }
+  String bitcoinValueInUSD = "?";
 
   void getCurrencyRate() async {
     try {
-      double usdRates = await NetworkHelper().getData();
+      var usdRates = await NetworkHelper().getData(selectedCurrency);
       setState(() {
-        bitcoinValueInUSD = usdRates.toStringAsFixed(1);
+        bitcoinValueInUSD = usdRates.toStringAsFixed(0);
       });
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrencyRate();
   }
 
   DropdownButton<String> androidDropDown() {
@@ -46,6 +47,7 @@ class _PriceScreenState extends State<PriceScreen> {
       onChanged: (value) {
         setState(() {
           selectedCurrency = value;
+          getCurrencyRate();
         });
       },
     );
@@ -62,7 +64,8 @@ class _PriceScreenState extends State<PriceScreen> {
       backgroundColor: kBlueBackgroundColor,
       itemExtent: 32.0,
       onSelectedItemChanged: (selectIndex) {
-        print(selectIndex);
+        selectedCurrency = currenciesList[selectIndex];
+        getCurrencyRate();
       },
       children: picker,
     );
@@ -89,7 +92,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 28.0, vertical: 15.0),
                 child: Text(
-                  '1 BTC = $bitcoinValueInUSD USD',
+                  '1 BTC = $bitcoinValueInUSD $selectedCurrency',
                   style: TextStyle(
                     fontSize: 20.0,
                     color: kWhiteTextColor,
