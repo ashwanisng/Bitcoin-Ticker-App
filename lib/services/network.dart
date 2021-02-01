@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bitcoin_ticker/coin_data.dart';
+import 'package:bitcoin_ticker/utilities/coin_data.dart';
 import 'package:http/http.dart' as http;
 
 const String url = "https://rest.coinapi.io/v1/exchangerate";
